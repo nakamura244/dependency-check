@@ -1,0 +1,52 @@
+references:
+  go-image: &go-image circleci/golang:1.12.4-stretch
+  go-directory: &go-directory /go/src/github.com/ca-crowdfunding/feed-worker
+  go-container: &go-container
+    docker:
+      - image: *go-image
+    environment:
+      TZ: /usr/share/zoneinfo/Asia/Tokyo
+      GO111MODULE: "on"
+    working_directory: *go-directory
+
+version: 2
+jobs:
+  lint:
+    <<: *go-container
+    steps:
+      - checkout
+      - attach_workspace:
+          at: /
+      - run:
+          name: "lint"
+          command: |
+            GO111MODULE=off go get -u golang.org/x/lint/golint
+            make lint
+    vet:
+      <<: *go-container
+      steps:
+        - checkout
+        - attach_workspace:
+            at: /
+        - run:
+            name: "Run go vet"
+            command: |
+              make vet
+    test:
+      docker:
+        - image: *go-image
+          environment:
+            GO111MODULE: "on"
+      working_directory: *go-directory
+      environment:
+        TZ: Asia/Tokyo
+      steps:
+        - checkout
+        - attach_workspace:
+            at: /
+        - run:
+            name: "Run test"
+            command: |
+              go version
+              make setup
+              make test

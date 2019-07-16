@@ -1,0 +1,22 @@
+base:
+  innerPath: &innerPath github.com/nakamura244/dependency-check/testdata/src/invalid-dependency-package
+
+layer1:
+  layerName: layer1
+  packageNames:
+    - github.com/nakamura244/dependency-check/testdata/src/invalid-dependency-package/layer1
+  innerPath: *innerPath
+  allowDependPackages:
+    - all
+  allowDependBuildIn: yes
+  allowDependOutside: yes
+
+layer2:
+  layerName: layer2
+  packageNames:
+    - github.com/nakamura244/dependency-check/testdata/src/invalid-dependency-package/layer2
+  innerPath: *innerPath
+  allowDependPackages:
+    - all
+  allowDependBuildIn: no
+  allowDependOutside: yes
