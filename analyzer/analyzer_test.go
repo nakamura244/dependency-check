@@ -109,24 +109,29 @@ func Test_checkDependPackage(t *testing.T) {
 		r    bool
 	}{
 		{
-			list: []string{"aaa", "bbb"},
-			c:    &configBody{AllowDependPackages: []string{"all"}},
-			r:    true,
-		},
-		{
 			list: []string{},
 			c:    &configBody{AllowDependPackages: []string{"aaa", "bbb"}},
 			r:    true,
 		},
 		{
-			list: []string{"aaa"},
-			c:    &configBody{AllowDependPackages: []string{"aaa", "bbb"}},
+			list: []string{"aaa", "bbb"},
+			c:    &configBody{AllowDependPackages: []string{"all"}},
 			r:    true,
+		},
+		{
+			list: []string{"aaa"},
+			c:    &configBody{AllowDependPackages: []string{}},
+			r:    false,
 		},
 		{
 			list: []string{"ccc"},
 			c:    &configBody{AllowDependPackages: []string{"aaa", "bbb"}},
 			r:    false,
+		},
+		{
+			list: []string{"bbb"},
+			c:    &configBody{AllowDependPackages: []string{"aaa", "bbb"}},
+			r:    true,
 		},
 	}
 	for i, test := range tests {

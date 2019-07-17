@@ -1,4 +1,5 @@
 SRC = $(shell find . -type f -name '*.go')
+VERSION = $(shell godzil show-version)
 CURRENT_REVISION = $(shell git rev-parse --short HEAD)
 BUILD_LDFLAGS = "-s -w -X github.com/nakamura244/dependency-check.revision=$(CURRENT_REVISION)"
 
@@ -33,3 +34,7 @@ go-build:
 install:
 	mv dependency-check "$(shell go env GOPATH)/bin/"
 
+.PHONY: crossbuild
+crossbuild: credits
+	goxz -pv=v$(VERSION) -build-ldflags=$(BUILD_LDFLAGS) \
+      -os=linux,darwin -d=./dist/v$(VERSION)
