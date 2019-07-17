@@ -169,10 +169,19 @@ func checkDependPackage(list []string, c *configBody) bool {
 	if len(list) == 0 {
 		return true
 	}
+
+	if len(c.AllowDependPackages) > 0 && c.AllowDependPackages[0] == "all" {
+		return true
+	}
+
+	if len(c.AllowDependPackages) == 0 && len(list) != 0 {
+		return false
+	}
+
 	var f bool
 	for _, l := range list {
 		for _, p := range c.AllowDependPackages {
-			if l == p || p == "all" {
+			if l == p {
 				f = true
 			}
 		}
