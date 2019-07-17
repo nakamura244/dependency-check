@@ -18,7 +18,7 @@ Tool to check the dependencies of the above three packages
 Developed based on `golang.org/x/tools/go/analysis`
 
 # Installation
-```
+```console
 go get github.com/nakamura244/dependency-check
 ```
 
@@ -26,7 +26,7 @@ go get github.com/nakamura244/dependency-check
 ## Add Config
 Add .config.yml file to your repository. like this
 
-```
+```yaml
 .dependency-check/config.yml
 
 base:
@@ -94,7 +94,7 @@ You can set up to 4 layers or less. (layer1, layer2, layer3, layer4)
 - allowDependOutside ... Allow import of third party package | required (`yes` or `no`)
 
 ## usages
-```
+```console
 dependency-check 
 DependencyChecker: DependencyChecker is checking dependency from imports (v0.0.1 rev:HEAD)
 
@@ -133,7 +133,7 @@ Flags:  -V      print version and exit
 ## Run
 
 ### case valid
-```
+```console
 dependency-check -ignoreTests=true -config=./testdata/src/valid-pattern/.dependency-check/config.yml ./testdata/src/valid-pattern/...
 skip: /Users/a12091/go/src/github.com/nakamura244/dependency-check/testdata/src/valid-pattern/infrastructures/iface/http.go is not belong to anywhere layer.
 skip: /Users/a12091/go/src/github.com/nakamura244/dependency-check/testdata/src/valid-pattern/infrastructures/iface/sql.go is not belong to anywhere layer.
@@ -158,7 +158,7 @@ checking[layer:infrastructures] file /Users/a12091/go/src/github.com/nakamura244
 - Packages not registered in any layer will be skipped
 
 ### case invalid
-```
+```console
 dependency-check -ignoreTests=true -config=./testdata/src/invalid-dependency-buildin/.dependency-check/config.yml ./testdata/src/invalid-dependency-buildin/...
 checking[layer:layer1] file /Users/a12091/go/src/github.com/nakamura244/dependency-check/testdata/src/invalid-dependency-buildin/layer1/a.go is ok 
 DependencyChecker: found a violation of terms : /Users/a12091/go/src/github.com/nakamura244/dependency-check/testdata/src/invalid-dependency-buildin/layer2/b.go is not allow buildin package
