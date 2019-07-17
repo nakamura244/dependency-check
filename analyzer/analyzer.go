@@ -39,8 +39,7 @@ type base struct {
 
 // Analyzer is analysis analyzer struct
 var Analyzer = &analysis.Analyzer{
-	Name:             "importcheck",
-	Doc:              "importcheck is checking dependency",
+	Name:             "DependencyChecker",
 	RunDespiteErrors: true,
 	Run:              run,
 	Requires:         []*analysis.Analyzer{inspect.Analyzer},

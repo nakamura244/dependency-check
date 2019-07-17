@@ -1,9 +1,11 @@
 SRC = $(shell find . -type f -name '*.go')
+VERSION = $(shell godzil show-version)
 
 .PHONY:setup
 setup: ## Setup some tools
 	GO111MODULE=off go get -u golang.org/x/lint/golint
 	GO111MODULE=off go get -u golang.org/x/tools/cmd/goimports
+	GO111MODULE=off go get -u github.com/Songmu/godzil/cmd/godzil
 
 .PHONY:goimports
 goimports: ## Run the goimports in all directories
@@ -21,6 +23,11 @@ lint: ## Run the Golint in all directories
 vet: ## Run vet
 	go vet ./...
 
-.PHONY: go-linux-build
-go-linux-build: ## Run go linux build
-	CGO_ENABLED=0 GOOS=linux go build -ldflags "-X main.buildVersion=$(VERSION)" -a -installsuffix cgo -o main .
+.PHONY: go-build
+go-build:
+	go build -ldflags="-X main.version=$(VERSION)"
+
+.PHONY: install
+install:
+	mv dependency-check "$(shell go env GOPATH)/bin/"
+
