@@ -1,5 +1,7 @@
 SRC = $(shell find . -type f -name '*.go')
-VERSION = $(shell godzil show-version)
+CURRENT_REVISION = $(shell git rev-parse --short HEAD)
+BUILD_LDFLAGS = "-s -w -X github.com/nakamura244/dependency-check.revision=$(CURRENT_REVISION)"
+
 
 .PHONY:setup
 setup: ## Setup some tools
@@ -25,7 +27,7 @@ vet: ## Run vet
 
 .PHONY: go-build
 go-build:
-	go build -ldflags="-X main.version=$(VERSION)"
+	go build -ldflags=$(BUILD_LDFLAGS)
 
 .PHONY: install
 install:
