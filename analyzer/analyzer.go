@@ -48,7 +48,6 @@ var Analyzer = &analysis.Analyzer{
 
 var (
 	goRoot = os.Getenv("GOROOT")
-	goPath = os.Getenv("GOPATH")
 )
 
 func run(pass *analysis.Pass) (interface{}, error) {

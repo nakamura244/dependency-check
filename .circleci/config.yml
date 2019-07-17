@@ -1,6 +1,6 @@
 references:
   go-image: &go-image circleci/golang:1.12.4-stretch
-  go-directory: &go-directory /go/src/github.com/ca-crowdfunding/feed-worker
+  go-directory: &go-directory /go/src/github.com/nakamura244/dependency-check
   go-container: &go-container
     docker:
       - image: *go-image
@@ -11,6 +11,26 @@ references:
 
 version: 2
 jobs:
+  install-module:
+    <<: *go-container
+    steps:
+      - checkout
+      - run:
+          name: "Setting git config"
+          command: |
+            git config --global url."https://${GITHUB_ACCESS_TOKEN}:x-oauth-basic@github.com/".insteadOf "https://github.com/"
+      - restore_cache:
+          keys:
+            - feed-worker-v1-mod-{{ .Branch }}-{{ checksum "go.sum" }}
+      - run: go mod download
+      - save_cache:
+          key: feed-worker-v1-mod-{{ .Branch }}-{{ checksum "go.sum" }}
+          paths:
+            - /go/pkg/mod
+      - persist_to_workspace:
+          root: /
+          paths:
+            - go/pkg/mod
   lint:
     <<: *go-container
     steps:
@@ -22,31 +42,47 @@ jobs:
           command: |
             GO111MODULE=off go get -u golang.org/x/lint/golint
             make lint
-    vet:
-      <<: *go-container
-      steps:
-        - checkout
-        - attach_workspace:
-            at: /
-        - run:
-            name: "Run go vet"
-            command: |
-              make vet
-    test:
-      docker:
-        - image: *go-image
-          environment:
-            GO111MODULE: "on"
-      working_directory: *go-directory
-      environment:
-        TZ: Asia/Tokyo
-      steps:
-        - checkout
-        - attach_workspace:
-            at: /
-        - run:
-            name: "Run test"
-            command: |
-              go version
-              make setup
-              make test
+  vet:
+    <<: *go-container
+    steps:
+      - checkout
+      - attach_workspace:
+          at: /
+      - run:
+          name: "Run go vet"
+          command: |
+            make vet
+  test:
+    docker:
+      - image: *go-image
+        environment:
+          GO111MODULE: "on"
+    working_directory: *go-directory
+    environment:
+      TZ: Asia/Tokyo
+      GOROOT: /usr/local/go
+    steps:
+      - checkout
+      - attach_workspace:
+          at: /
+      - run:
+          name: "Run test"
+          command: |
+            go version
+            make setup
+            make test
+
+workflows:
+  version: 2
+  ci:
+    jobs:
+      - install-module
+      - lint:
+          requires:
+            - install-module
+      - vet:
+          requires:
+            - install-module
+      - test:
+          requires:
+            - install-module
