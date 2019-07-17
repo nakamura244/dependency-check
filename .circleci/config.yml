@@ -62,6 +62,7 @@ jobs:
       TZ: Asia/Tokyo
       GOROOT: /usr/local/go
       GOPATH: /go
+      GOMOD: /go/src/github.com/nakamura244/dependency-check/go.mod
     steps:
       - checkout
       - attach_workspace:
