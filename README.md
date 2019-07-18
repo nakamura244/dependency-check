@@ -30,48 +30,48 @@ Add .config.yml file to your repository. like this
 .dependency-check/config.yml
 
 base:
-  innerPath: &innerPath github.com/nakamura244/dependency-check/testdata/src/valid-pattern
+  innerPath: &innerPath github.com/nakamura244/dependency-check/testdata/src/valid
 
 layer1:
   layerName: infrastructures
   packageNames:
-    - github.com/nakamura244/dependency-check/testdata/src/valid-pattern/infrastructures
+    - github.com/nakamura244/dependency-check/testdata/src/valid/infrastructures
   innerPath: *innerPath
   allowDependPackages:
-    - github.com/nakamura244/dependency-check/testdata/src/valid-pattern/domain
-    - github.com/nakamura244/dependency-check/testdata/src/valid-pattern/interfaces
-    - github.com/nakamura244/dependency-check/testdata/src/valid-pattern/config
-    - github.com/nakamura244/dependency-check/testdata/src/valid-pattern/infrastructures/iface
+    - github.com/nakamura244/dependency-check/testdata/src/valid/domain
+    - github.com/nakamura244/dependency-check/testdata/src/valid/interfaces
+    - github.com/nakamura244/dependency-check/testdata/src/valid/config
+    - github.com/nakamura244/dependency-check/testdata/src/valid/infrastructures/iface
   allowDependBuildIn: yes
   allowDependOutside: yes
 
 layer2:
   layerName: interfaces
   packageNames:
-    - github.com/nakamura244/dependency-check/testdata/src/valid-pattern/interfaces/database
-    - github.com/nakamura244/dependency-check/testdata/src/valid-pattern/interfaces/api
-    - github.com/nakamura244/dependency-check/testdata/src/valid-pattern/interfaces/log
+    - github.com/nakamura244/dependency-check/testdata/src/valid/interfaces/database
+    - github.com/nakamura244/dependency-check/testdata/src/valid/interfaces/api
+    - github.com/nakamura244/dependency-check/testdata/src/valid/interfaces/log
   innerPath: *innerPath
   allowDependPackages:
-    - github.com/nakamura244/dependency-check/testdata/src/valid-pattern/domain
-    - github.com/nakamura244/dependency-check/testdata/src/valid-pattern/usecase
+    - github.com/nakamura244/dependency-check/testdata/src/valid/domain
+    - github.com/nakamura244/dependency-check/testdata/src/valid/usecase
   allowDependBuildIn: yes
   allowDependOutside: no
 
 layer3:
   layerName: usecase
   packageNames:
-    - github.com/nakamura244/dependency-check/testdata/src/valid-pattern/usecase
+    - github.com/nakamura244/dependency-check/testdata/src/valid/usecase
   innerPath: *innerPath
   allowDependPackages:
-    - github.com/nakamura244/dependency-check/testdata/src/valid-pattern/domain
+    - github.com/nakamura244/dependency-check/testdata/src/valid/domain
   allowDependBuildIn: yes
   allowDependOutside: yes
 
 layer4:
   layerName: domain
   packageNames:
-    - github.com/nakamura244/dependency-check/testdata/src/valid-pattern/domain
+    - github.com/nakamura244/dependency-check/testdata/src/valid/domain
   innerPath: *innerPath
   allowDependPackages:
   allowDependBuildIn: yes
@@ -134,26 +134,26 @@ Flags:  -V      print version and exit
 
 ### case valid
 ```console
-dependency-check -ignoreTests=true -config=./testdata/src/valid-pattern/.dependency-check/config.yml ./testdata/src/valid-pattern/...
-skip: /Users/a12091/go/src/github.com/nakamura244/dependency-check/testdata/src/valid-pattern/infrastructures/iface/http.go is not belong to anywhere layer.
-skip: /Users/a12091/go/src/github.com/nakamura244/dependency-check/testdata/src/valid-pattern/infrastructures/iface/sql.go is not belong to anywhere layer.
-skip: /Users/a12091/go/src/github.com/nakamura244/dependency-check/testdata/src/valid-pattern/config/config.go is not belong to anywhere layer.
-checking[layer:domain] file /Users/a12091/go/src/github.com/nakamura244/dependency-check/testdata/src/valid-pattern/domain/a.go is ok 
-skip: /Users/a12091/go/src/github.com/nakamura244/dependency-check/testdata/src/valid-pattern/tasks/g.go is not belong to anywhere layer.
-checking[layer:domain] file /Users/a12091/go/src/github.com/nakamura244/dependency-check/testdata/src/valid-pattern/domain/b.go is ok 
-checking[layer:interfaces] file /Users/a12091/go/src/github.com/nakamura244/dependency-check/testdata/src/valid-pattern/interfaces/database/c.go is ok 
-checking[layer:domain] file /Users/a12091/go/src/github.com/nakamura244/dependency-check/testdata/src/valid-pattern/domain/c.go is ok 
-checking[layer:interfaces] file /Users/a12091/go/src/github.com/nakamura244/dependency-check/testdata/src/valid-pattern/interfaces/log/e.go is ok 
-checking[layer:infrastructures] file /Users/a12091/go/src/github.com/nakamura244/dependency-check/testdata/src/valid-pattern/infrastructures/a.go is ok 
-checking[layer:interfaces] file /Users/a12091/go/src/github.com/nakamura244/dependency-check/testdata/src/valid-pattern/interfaces/log/f.go is ok 
-checking[layer:infrastructures] file /Users/a12091/go/src/github.com/nakamura244/dependency-check/testdata/src/valid-pattern/infrastructures/b.go is ok 
-checking[layer:usecase] file /Users/a12091/go/src/github.com/nakamura244/dependency-check/testdata/src/valid-pattern/usecase/h.go is ok 
-checking[layer:interfaces] file /Users/a12091/go/src/github.com/nakamura244/dependency-check/testdata/src/valid-pattern/interfaces/database/d.go is ok 
-checking[layer:infrastructures] file /Users/a12091/go/src/github.com/nakamura244/dependency-check/testdata/src/valid-pattern/infrastructures/c.go is ok 
-checking[layer:interfaces] file /Users/a12091/go/src/github.com/nakamura244/dependency-check/testdata/src/valid-pattern/interfaces/api/a.go is ok 
-checking[layer:usecase] file /Users/a12091/go/src/github.com/nakamura244/dependency-check/testdata/src/valid-pattern/usecase/i.go is ok 
-checking[layer:interfaces] file /Users/a12091/go/src/github.com/nakamura244/dependency-check/testdata/src/valid-pattern/interfaces/api/b.go is ok 
-checking[layer:infrastructures] file /Users/a12091/go/src/github.com/nakamura244/dependency-check/testdata/src/valid-pattern/infrastructures/d.go is ok 
+dependency-check -ignoreTests=true -config=./testdata/src/valid/.dependency-check/config.yml ./testdata/src/valid/...
+skip: /Users/a12091/go/src/github.com/nakamura244/dependency-check/testdata/src/valid/infrastructures/iface/http.go is not belong to anywhere layer.
+skip: /Users/a12091/go/src/github.com/nakamura244/dependency-check/testdata/src/valid/infrastructures/iface/sql.go is not belong to anywhere layer.
+skip: /Users/a12091/go/src/github.com/nakamura244/dependency-check/testdata/src/valid/config/config.go is not belong to anywhere layer.
+checking[layer:domain] file /Users/a12091/go/src/github.com/nakamura244/dependency-check/testdata/src/valid/domain/a.go is ok 
+skip: /Users/a12091/go/src/github.com/nakamura244/dependency-check/testdata/src/valid/tasks/g.go is not belong to anywhere layer.
+checking[layer:domain] file /Users/a12091/go/src/github.com/nakamura244/dependency-check/testdata/src/valid/domain/b.go is ok 
+checking[layer:interfaces] file /Users/a12091/go/src/github.com/nakamura244/dependency-check/testdata/src/valid/interfaces/database/c.go is ok 
+checking[layer:domain] file /Users/a12091/go/src/github.com/nakamura244/dependency-check/testdata/src/valid/domain/c.go is ok 
+checking[layer:interfaces] file /Users/a12091/go/src/github.com/nakamura244/dependency-check/testdata/src/valid/interfaces/log/e.go is ok 
+checking[layer:infrastructures] file /Users/a12091/go/src/github.com/nakamura244/dependency-check/testdata/src/valid/infrastructures/a.go is ok 
+checking[layer:interfaces] file /Users/a12091/go/src/github.com/nakamura244/dependency-check/testdata/src/valid/interfaces/log/f.go is ok 
+checking[layer:infrastructures] file /Users/a12091/go/src/github.com/nakamura244/dependency-check/testdata/src/valid/infrastructures/b.go is ok 
+checking[layer:usecase] file /Users/a12091/go/src/github.com/nakamura244/dependency-check/testdata/src/valid/usecase/h.go is ok 
+checking[layer:interfaces] file /Users/a12091/go/src/github.com/nakamura244/dependency-check/testdata/src/valid/interfaces/database/d.go is ok 
+checking[layer:infrastructures] file /Users/a12091/go/src/github.com/nakamura244/dependency-check/testdata/src/valid/infrastructures/c.go is ok 
+checking[layer:interfaces] file /Users/a12091/go/src/github.com/nakamura244/dependency-check/testdata/src/valid/interfaces/api/a.go is ok 
+checking[layer:usecase] file /Users/a12091/go/src/github.com/nakamura244/dependency-check/testdata/src/valid/usecase/i.go is ok 
+checking[layer:interfaces] file /Users/a12091/go/src/github.com/nakamura244/dependency-check/testdata/src/valid/interfaces/api/b.go is ok 
+checking[layer:infrastructures] file /Users/a12091/go/src/github.com/nakamura244/dependency-check/testdata/src/valid/infrastructures/d.go is ok 
 ```
 - Packages not registered in any layer will be skipped
 

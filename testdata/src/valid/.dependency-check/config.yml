@@ -1,0 +1,47 @@
+base:
+  innerPath: &innerPath github.com/nakamura244/dependency-check/testdata/src/valid
+
+layer1:
+  layerName: infrastructures
+  packageNames:
+    - github.com/nakamura244/dependency-check/testdata/src/valid/infrastructures
+  innerPath: *innerPath
+  allowDependPackages:
+    - github.com/nakamura244/dependency-check/testdata/src/valid/domain
+    - github.com/nakamura244/dependency-check/testdata/src/valid/interfaces
+    - github.com/nakamura244/dependency-check/testdata/src/valid/config
+    - github.com/nakamura244/dependency-check/testdata/src/valid/infrastructures/iface
+  allowDependBuildIn: yes
+  allowDependOutside: yes
+
+layer2:
+  layerName: interfaces
+  packageNames:
+    - github.com/nakamura244/dependency-check/testdata/src/valid/interfaces/database
+    - github.com/nakamura244/dependency-check/testdata/src/valid/interfaces/api
+    - github.com/nakamura244/dependency-check/testdata/src/valid/interfaces/log
+  innerPath: *innerPath
+  allowDependPackages:
+    - github.com/nakamura244/dependency-check/testdata/src/valid/domain
+    - github.com/nakamura244/dependency-check/testdata/src/valid/usecase
+  allowDependBuildIn: yes
+  allowDependOutside: no
+
+layer3:
+  layerName: usecase
+  packageNames:
+    - github.com/nakamura244/dependency-check/testdata/src/valid/usecase
+  innerPath: *innerPath
+  allowDependPackages:
+    - github.com/nakamura244/dependency-check/testdata/src/valid/domain
+  allowDependBuildIn: yes
+  allowDependOutside: yes
+
+layer4:
+  layerName: domain
+  packageNames:
+    - github.com/nakamura244/dependency-check/testdata/src/valid/domain
+  innerPath: *innerPath
+  allowDependPackages:
+  allowDependBuildIn: yes
+  allowDependOutside: yes

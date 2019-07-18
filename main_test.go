@@ -13,11 +13,11 @@ func init() {
 	findcall.Analyzer.Flags.Bool("ignoreTests", true, "ignoreTests bool")
 	testdata = analysistest.TestData()
 
-	findcall.Analyzer.Flags.StringVar(&config, "config", "./testdata/src/valid-pattern/.dependency-check/config.yml", "config path")
+	findcall.Analyzer.Flags.StringVar(&config, "config", "./testdata/src/valid/.dependency-check/config.yml", "config path")
 }
 
 func TestValid(t *testing.T) {
-	analysistest.Run(t, testdata, findcall.Analyzer, "valid-pattern/config", "valid-pattern/domain", "valid-pattern/infrastructures", "valid-pattern/interfaces", "valid-pattern/tasks", "valid-pattern/usecase")
+	analysistest.Run(t, testdata, findcall.Analyzer, "valid/config", "valid/domain", "valid/infrastructures", "valid/interfaces", "valid/tasks", "valid/usecase")
 }
 
 func TestInvalidDependecyPackage(t *testing.T) {
