@@ -170,5 +170,4 @@ DependencyChecker: found a violation of terms : /Users/a12091/go/src/github.com/
 If you are using CircleCI, you may need to set environment variables
 like this (https://github.com/nakamura244/dependency-check/blob/master/.circleci/config.yml#L63)
 
-need setting to goroot
 Need to set GOROOT's environment variable
