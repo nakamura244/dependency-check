@@ -164,3 +164,11 @@ checking[layer:layer1] file /Users/a12091/go/src/github.com/nakamura244/dependen
 DependencyChecker: found a violation of terms : /Users/a12091/go/src/github.com/nakamura244/dependency-check/testdata/src/invalid-dependency-buildin/layer2/b.go is not allow buildin package
 ```
 - You will be warned if there is a violation
+
+
+# Caution
+If you are using CircleCI, you may need to set environment variables
+like this (https://github.com/nakamura244/dependency-check/blob/master/.circleci/config.yml#L63)
+
+need setting to goroot
+Need to set GOROOT's environment variable
