@@ -171,3 +171,7 @@ If you are using CircleCI, you may need to set environment variables
 like this (https://github.com/nakamura244/dependency-check/blob/master/.circleci/config.yml#L63)
 
 Need to set GOROOT's environment variable
+
+
+# If you have questions
+Please contact https://twitter.com/nakamura_244
